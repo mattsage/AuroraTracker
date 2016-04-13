@@ -1,4 +1,12 @@
-#include <FastLED.h>
+/*
+Reddit Post: https://www.reddit.com/r/arduino/comments/4bmjc9/aurora_effect_neopixel_help/
+Photon Help: https://community.particle.io/t/help-error-when-compiling-code-works-with-arduino-ide-and-codebender/22030/3
+*/
+
+#include "FastLED/FastLED.h"
+
+/*#include <FastLED.h>
+^^Above is for Arduino/Codebender^^ */
 
 /*  How many times per second should we update the
  *  colour of the LED? http://pastebin.com/1wLEJyB9
@@ -17,6 +25,7 @@ const int paletteSize = 5 * 16;
  *  for smooth cyclic transitions.
  *  The remainder of the palette is zero-padded.
  */
+using namespace NSFastLED; //Added for Particle Photon build due to FastLED in the community libraries includes a C++ namespace
 const CRGBPalette16 auroraPalette(
   CRGB(20,232,30),
   CRGB(0,234,141),
@@ -54,7 +63,7 @@ void loop() {
   static int index = 0;
   if (++index >= paletteSize) index = 0;
   
-  led = ColorFromPalette(auroraPalette, index, 255, LINEARBLEND);
+  led = ColorFromPalette(auroraPalette, index, 255, LINEARBLEND); //Changed BLEND to LINEARBLEND
   
   FastLED.show();
   FastLED.delay(1000 / frameRate);
