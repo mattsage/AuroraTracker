@@ -63,9 +63,11 @@ void setup() {
 
 
 
-
+//Standard Loop turn CRGB LED off (Black)
 void loop() {
-
+        led = CRGB::Black; 
+        FastLED.show(); 
+        delay(30); 
 } 
 
 
