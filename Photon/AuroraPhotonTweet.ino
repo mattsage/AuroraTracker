@@ -31,17 +31,14 @@ const CRGBPalette16 auroraPalette(
   CRGB(0,234,141),
   CRGB(1,126,213),
   CRGB(181,61,255),
-  
   CRGB(141,0,196),
   CRGB(20,232,30),
   0,
   0,
-
   0,
   0,
   0,
   0,
-
   0,
   0,
   0,
@@ -76,6 +73,7 @@ void loop() {
 // this function automagically gets called upon a tweet mention
 int twittermessage(String ignore)
 {
+    delay(5000); //Wait 5 Seconds (Need this to be at least 30 mins (30000) as @auroraalerts predicts ~50 mins before events )
     while(1){
     static int index = 0;
     if (++index >= paletteSize) index = 0;
