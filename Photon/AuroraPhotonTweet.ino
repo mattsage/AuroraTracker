@@ -11,6 +11,8 @@ Photon Help: https://community.particle.io/t/help-error-when-compiling-code-work
 /*  How many times per second should we update the
  *  colour of the LED? http://pastebin.com/1wLEJyB9
  */
+int pinled = D7; 
+
 const int frameRate = 30;
 
 /*  We use 5 known colours which are each expanded to
@@ -48,13 +50,12 @@ const CRGBPalette16 auroraPalette(
 CRGB led;
 
 void setup() {
-  // attach our one NeoPixel LED to pin 6
-  FastLED.addLeds<NEOPIXEL, 6>(&led, 1);
+  FastLED.addLeds<NEOPIXEL, 6>(&led, 1); // attach our one NeoPixel LED to pin 6
   Spark.function("tweet", twittermessage);
   //particle.function("tweet", twittermessage);
-  
-  // so we don't blind ourselves
-  //FastLED.setBrightness(63);
+  pinMode(pinled, OUTPUT); // Set up onboard LED as a "pre" notification
+  //FastLED.setBrightness(63); // so we don't blind ourselves
+
 
 }
 
@@ -73,7 +74,10 @@ void loop() {
 // this function automagically gets called upon a tweet mention
 int twittermessage(String ignore)
 {
-    delay(5000); //Wait 5 Seconds (Need this to be at least 30 mins (30000) as @auroraalerts predicts ~50 mins before events )
+    digitalWrite(pinled, HIGH); // Turn on On-board LED as "pre-notification"
+    delay(1800000); //Wait 30 mins (1800000 Milliseconds) as @auroraalerts predicts ~50 mins before events )
+    digitalWrite(pinled, LOW); // Turn off On-board LED
+    //Turn on Neopixel
     while(1){
     static int index = 0;
     if (++index >= paletteSize) index = 0;
